@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Testing Register Page">
+    <test name="Checking All Cases">
+        <classes>
+            <class name="GlobbingRegisterPage">
+                <methods>
+                    <include name="hoverGrancvelButton"/>
+                    <include name="clickGrancvelButton"/>
+                    <include name="checkBorderColorWhenClickInEmailInputFeald"/>
+                    <include name="typingCursor"/>
+                    <include name="inputFealdEmpty"/>
+                    <include name="invalidBug"/>
+                    <include name="validInputField"/>
+                    <include name="limiation"/>
+                    <include name="checkbox"/>
+                    <include name="fB"/>
+                    <include name="calculator"/>
+                    <include name="grancvacEmail"/>
+                    <include name="geraffeIcon"/>
+                    <include name="stres"/>
+                    <include name="invalidBug2"/>
+                    <include name="limiationBug"/>
+                  </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
