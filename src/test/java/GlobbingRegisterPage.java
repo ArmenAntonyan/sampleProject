@@ -23,13 +23,12 @@ public class GlobbingRegisterPage {
     public static final String path = System.getProperty("user.dir") + File.separator + "requirements" + File.separator + "webdrivers" + File.separator;
 
 
-
     @BeforeMethod
     protected void befor() {
-        System.setProperty("webdriver.chrome.driver",path+"chromedriver-v2.37-win32.exe");
+        System.setProperty("webdriver.chrome.driver", path + "chromedriver.exe");
         driver = new ChromeDriver();
         builder = new Actions(driver);
-        helper= new Helper();
+        helper = new Helper();
         driver.manage().window().maximize();
     }
 
@@ -90,11 +89,12 @@ public class GlobbingRegisterPage {
     @Test
     protected void validInputField() {
         driver.get("https://globbing.com/arm/register");
-        driver.findElement(By.id("register_personal_email")).sendKeys("ArmenAntonyan@gmail.com");
+        driver.findElement(By.id("register_personal_email")).sendKeys("Ar@gmail.com");
         driver.findElement(By.xpath("//button[@class='register--submit btn is--primary ']")).click();
         String actualColor = driver.findElement(By.id("register_personal_email")).getCssValue("background-color");
         assertEquals("rgba(236, 248, 244, 1)", actualColor);
     }
+
     @Test
     protected void limiation() throws InterruptedException {
         driver.get("https://globbing.com/arm/register");
@@ -119,11 +119,11 @@ public class GlobbingRegisterPage {
     protected void checkbox() throws InterruptedException {
 
         driver.get("https://globbing.com/arm/register");
-        javaScript(0,400);
+        javaScript(0, 400);
         driver.findElement(By.xpath("//button[@class='register--submit btn is--primary ']")).click();
-        helper.waitForElementPresent(driver,"//*[@id='f_registerFormValidation']/div[1]/div/div[2]/div[5]/label/span[1]",5000);
+        helper.waitForElementPresent(driver, "//*[@id='f_registerFormValidation']/div[1]/div/div[2]/div[5]/label/span[1]", 5000);
         driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[1]/div/div[2]/div[5]/label/span[1]")).click();
-        helper.waitForElementPresent(driver,"//span[@class=\"accept-reg-icon\"]",5000);
+        helper.waitForElementPresent(driver, "//span[@class=\"accept-reg-icon\"]", 5000);
         assertEquals("accept-reg-icon", driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[1]/div/div[2]/div[5]/label/span[1]")).getAttribute("class"));
     }
 
@@ -131,40 +131,43 @@ public class GlobbingRegisterPage {
     protected void registerWithFB() throws InterruptedException {
         driver.get("https://globbing.com/arm/register");
         driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[5]/ul/li/a")).click();
-        helper.waitForUrlPresent(driver,"https://www.facebook.com/login.php",5000);
+        helper.waitForUrlPresent(driver, "https://www.facebook.com/login.php", 5000);
         assertTrue(switchToWindow().contains(fbUrl));
     }
+
     @Test
     protected void calculator() throws InterruptedException {
         driver.get("https://globbing.com/arm/register");
-        helper.waitForElementPresent(driver,"//a[@class='shipping-calculator-icon']",5000);
+        helper.waitForElementPresent(driver, "//a[@class='shipping-calculator-icon']", 5000);
         driver.findElement(By.xpath("//a[@class='shipping-calculator-icon']")).click();
-       helper.waitForElementPresent(driver,"//*[@id='f_shippingCalcWindow']/div[1]",5000);
-        assertTrue (driver.findElement(By.xpath("//*[@id='f_shippingCalcWindow']/div[1]")).isDisplayed());
+        helper.waitForElementPresent(driver, "//*[@id='f_shippingCalcWindow']/div[1]", 5000);
+        assertTrue(driver.findElement(By.xpath("//*[@id='f_shippingCalcWindow']/div[1]")).isDisplayed());
     }
+
     @Test
-    protected void grancvacEmail() throws InterruptedException
-    {
+    protected void grancvacEmail() throws InterruptedException {
         driver.get("https://globbing.com/arm/register");
         driver.findElement(By.id("register_personal_email")).sendKeys("Menchmenchyan@gmail.com");
         driver.findElement(By.xpath("//button[@class='register--submit btn is--primary ']")).click();
-        assertEquals("Այս Էլ-փոստը արդեն գրանցված է",driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[1]/div/div[1]/div")).getText());
+        Thread.sleep(2000);
+        assertEquals("Այս Էլ-փոստը արդեն գրանցված է", driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[1]/div/div[1]/div")).getText());
 
     }
+
     @Test
     protected void geraffeIcon() throws InterruptedException {
         driver.get("https://globbing.com/arm/register");
-        helper.waitForElementPresent(driver,"//*[@id='PureChatWidget']/div[3]/div[1]",5000);
+        helper.waitForElementPresent(driver, "//*[@id='PureChatWidget']/div[3]/div[1]", 5000);
 
         assertTrue(driver.findElement(By.xpath("//*[@id='PureChatWidget']/div[3]/div[1]")).isDisplayed());
     }
+
     @Test
     protected void stres() throws InterruptedException {
         driver.get("https://globbing.com/arm/register");
         sexmel00Angam();
-        assertEquals("https://globbing.com/arm/register",driver.getCurrentUrl());
+        assertEquals("https://globbing.com/arm/register", driver.getCurrentUrl());
     }
-
 
 
     @Test
@@ -174,7 +177,7 @@ public class GlobbingRegisterPage {
         helper.captureScreen(driver);
         driver.findElement(By.xpath("//button[@class='register--submit btn is--primary ']")).click();
         helper.captureScreen(driver);
-        assertEquals("Խնդրում ենք մուտքագրեք լատինատառ",driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[1]/div/div[1]/div")).getText());
+        assertEquals("Խնդրում ենք մուտքագրեք լատինատառ", driver.findElement(By.xpath("//*[@id='f_registerFormValidation']/div[1]/div/div[1]/div")).getText());
 
     }
 
@@ -199,9 +202,9 @@ public class GlobbingRegisterPage {
         }
 
     }
-    protected void javaScript(int x,int y)
-    {
+
+    protected void javaScript(int x, int y) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy("+x+","+y+")");
+        js.executeScript("window.scrollBy(" + x + "," + y + ")");
     }
 }
